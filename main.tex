@@ -1051,11 +1051,120 @@ For any clauses consist of two counselors, we can construct a graph by adding an
 As a result, Efficient Recruiting is NP-complete.
 \vspace{2cm}
 
-
-
 \subsection*{p517 Ex8.22}
 \subsection*{Answer}
 We can use BFS to find all connected componenets. Then, we can call A to compute the size of independent set of each component. At last, Add them all up and get the size of independent set of graph G. As BFS is $O(|V|)$ and A runs in time polynomial. The totally running time is polynomial.
+
+
+
+
+
+\newpage
+\section*{Homework 10}
+\subsection*{p507 Ex8.7}
+\begin{adjustwidth}{1cm}{1cm}
+	since the 3 -Dimensional Matching Problem is NP-complete, it is natural to expect that the corresponding 4 -Dimensional Matching Problem is at least as hard. Let us define 4 -Dimensional Matching as follows. Given sets $W, X, Y,$ and $Z,$ each of size $n,$ and a collection $C$ of ordered 4 -tuples of the form $\left(w_{i}, x_{j}, y_{k}, z_{\ell}\right),$ do there exist $n$ 4-tuples from $c$ so that no two have an element in common?
+
+	Prove that 4 -Dimensional Matching is NP-complete.
+\end{adjustwidth}
+\subsection*{Answer}
+We can prove  \emph{4-Dimensional Matching problem $X$} is NP-complete by proving $Y\leq_pX$, where $Y$ is \emph{3-Dimensional Matching problem}, which is NP-complete.
+
+Given disjoint sets $X, Y,$ and $Z$, each of size $n$, and given a set $T \subseteq X \times Y \times Z$ of ordered triples, we can construct a set $M$ disjoint from $X, Y,$ and $Z$ and contruct tetrad set $T' = T \times M$, $T' \subseteq X \times Y \times Z \times M$
+
+If there exist a set of $n$ tetrad in $T'$ so that each element of $X \cup Y \cup Z \cup M$ is contained in exactly one of these tetrad. We can take out first three dimension of these $n$ tetrad and get a set of $n$ triples in $T$ so that each element of $X \cup Y \cup Z$ is contained in exactly one of these triples?
+
+So, $Y\leq_pX$ and \emph{4-Dimensional Matching problem $X$} is NP-complete.
+\vspace{2cm}
+
+
+\subsection*{p518 Ex8.27}
+\begin{adjustwidth}{1cm}{1cm}
+	Consider the following problem. You are given positive integers $x_1, . . . , x_n$,and numbers $k$ and $B$. You want to know whether it is possible to partition
+
+	the numbers $\left\{x_{i}\right\}$ into $k$ sets $S_{1}, \ldots, s_{k}$ so that the squared sums of the sets add up to at most $B:$
+
+	$$
+		\sum_{i=1}^{k}\left(\sum_{x_{j} \in S_{i}} x_{j}\right)^{2} \leq B
+	$$
+
+	Show that this problem is NP-complete.
+\end{adjustwidth}
+\subsection*{Answer}
+As we know, \emph{Subset Sum Problem $Y$} is is NP-complete, so we can prove this probelem $X$ is NP-complete by proving $Y\leq_pX$.
+
+For any given positive integers $x_1, . . . , x_n$, and $B$, we can let $k=2$ and $\Sigma x_i = S$. As subset sum $B$ problem is equivalent to subset sum $S-B$ problem, we assume $B \geq \frac{S}{2}$.
+
+If$B = \frac{S}{2}$ and there exists a partition satisfying:$\sum_{i=1}^{k}\left(\sum_{x_{j} \in S_{i}} x_{j}\right)^{2} \leq \frac{S^2}{2}$, otherwise, if $B > \frac{S}{2}$there exists a partition satisfying:
+$$
+	(B-1)^2 + (S-B+1)^2 < \sum_{i=1}^{k}\left(\sum_{x_{j} \in S_{i}} x_{j}\right)^{2} \leq B^2+(S-B)^2
+$$
+The subset sum of this partition is exactly $B$.
+
+We know by cauchy's inequality $\frac{S^2}{2} \leq x^2+(S-x)^2 \leq S^2$, so, it takes no more than $O(log(S^2))$ calls of problem Y to know wether problem X can be sovled. So $Y\leq_pX$ and this problem is NP-complete.
+\vspace{2cm}
+
+
+\subsection*{p653 Ex11.5}
+\subsection*{Answer}
+The optimal makespan is at least:
+$$
+	T^{*} \geq \frac{1}{m} \sum_{k} t_{k}
+$$
+
+For client which finished its assigned jobs at the latest ($T_j$), when we assigned the last job $t_i$ to it:
+$$
+	T_{j}-t_{i} \leq \frac{1}{m} \sum_{k} t_{k} \leq T^{*}
+$$
+
+$$
+	T_j = (T_{j}-t_{i}) + t_i
+$$
+
+
+As the sizes of jobs range between 1 and 50, and the total load is always at least 3,000, $t_i \leq 50 \div (3000 \div 10) T^{*} \leq 20\% T^{*}$
+
+So, the Greedy-Balance Algorithm will always find a solution whose makespan is at most 20 percent above the average load.
+\vspace{2cm}
+
+\subsection*{p654 Ex11.6}
+\subsection*{Answer}
+\begin{algorithm}[!htb]
+	\caption{Algorithm of Ex11.6}
+	\begin{algorithmic}[1]
+		\State Stat with no jobs assigned
+		\State Set $T_i=0$ and $A(i)=\emptyset$ for all macines $M_i$
+		\For{j=1,...n}
+		\State Let $M_i$ be a machine that achieves the minimum $min_kT_k$
+		\State Assign job $j$ to machine $M_i$
+		\State Set $A(i) = A(i) \cup \{j\}$
+		\State Set $T_j = T_j + (t_j$ or $\frac{1}{2}t_j) ($depend on $M_j$ slow or fast)
+		\EndFor
+	\end{algorithmic}
+\end{algorithm}
+The optimal makespan is at least:
+$$
+	T^{*} \geq \frac{\sum_{l} t_{l}}{2k+m}
+$$
+
+For client which finished its assigned jobs at the latest ($T_j$), when we assigned the last job $t_i$ to it:
+$$
+	T_{j}-t_{i} \leq \frac{\sum_{l} t_{l}}{2k+m} \leq T^{*}
+$$
+
+We also have:
+
+$$
+	T^* \geq \frac{1}{2} t_i
+$$
+
+so,
+
+$$
+	T_j = (T_{j}-t_{i}) + t_i \leq T^* + 2T^* = 3T^*
+$$
+
+The algorithm is polynomial-time.
 %表格
 %\begin{table}[!htbp]
 %	\centering
