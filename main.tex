@@ -1165,6 +1165,102 @@ $$
 $$
 
 The algorithm is polynomial-time.
+
+
+
+\newpage
+\section*{Homework 11}
+\subsection*{p653 Ex11.4}
+\begin{adjustwidth}{1cm}{1cm}
+	Consider an optimization version of the Hitting Set Problem defined as follows. We are given a set $A=\left\{a_{1}, \ldots, a_{n}\right\}$ and a collection $B_{1}, B_{2}, \ldots, B_{m}$ of subsets of $A$. Also, each element $a_{i} \in A$ has a weight $w_{i} \geq 0 .$ The problem is to find a hitting set $H \subseteq A$ such that the total weight of the elements in $H,$ that is, $\sum_{a_{i} \in H} w_{i},$ is as small as possible. (As in Exercise 5 in Chapter $8,$ we say that $H$ is a hitting set if $H \cap B_{i}$ is not empty for each $i .$.) Let $b=$ $\max _{i}\left|B_{i}\right|$ denote the maximum size of any of the sets $B_{1}, B_{2}, \ldots, B_{m} .$ Give a polynomial-time approximation algorithm for this problem that finds
+	a hitting set whose total weight is at most $b$ times the minimum possible.
+\end{adjustwidth}
+
+\subsection*{Answer}
+Consider the following problem for Linear Programming Relaxation.
+$$
+	\begin{aligned}
+		 & \operatorname{Min} \sum_{i=1}^{n} w_{i} x_{i} \\
+		 & \begin{array}{l@{\quad}l@{\quad}l}
+			\text { s.t. } & 0 \leq x_{i} \leq 1                          & \text { for all } i=1, \ldots, n \\
+			               & \sum_{i: a_{i} \in B_{j}} x_{i} \geq 1 \quad &
+			\text { for all } j=1, \ldots, m                                                                 \\
+		\end{array}
+	\end{aligned}
+$$
+\par After we get the relaxation solution $R = {x_i}$ of this problem, we can round x to get the rounding solution:
+$$
+	S=\left\{a_{i} \mid x_{i} \geq 1 / b\right\}
+$$
+\par First of all, S is a hitting set, because for any $B_j$, there is at least one $a_k \in B_j, a_k \geq 1/b$. Secondly, the relaxation solution is no worse than the original problem. Last, the rounding solution is at least b times of relaxation solution. So:
+$$
+	w(S) \leq b w(R) \leq bw(S^*)
+$$
+
+\vspace*{2cm}
+
+
+
+\subsection*{p655 Ex11.7}
+\subsection*{Answer}
+\subsubsection*{(a)}
+This problem is similar to load balancing problem. We can use Greedy-Balance algorithm:
+\begin{algorithm}[!htb]
+	\caption{Algorithm of Ex11.7}
+	\begin{algorithmic}[1]
+		\State Stat with no vister is showed ad.
+		\State Set $V_i=0$ and $C_i=\emptyset$ for all ads $A_i$
+		\For{j=1,...n}
+		\State Let $M_i$ be the ad that achieves the minimum $min_kV_k$
+		\State Show ad $M_i$ to visitor $j$.
+		\State Set $C_i= C_i \cup \{j\}$
+		\State Set $V_i = V_j + v_j$
+		\EndFor
+		\State Let $S$ be the ad that achieves the minimum $min_kV_k$ \\
+		\Return S
+	\end{algorithmic}
+\end{algorithm}
+\par
+The optimal spread is at most:
+$$
+	S^{*} \leq \frac{\sum_{j} v_{j}}{m}
+$$
+and the ad achieve most $V_K$ is larger than :
+$$
+	V_{max} \geq \frac{\sum_{j} v_{j}}{m}
+$$
+
+If $S < \frac{\sum_{j} v_{j}}{2m} $. For ad $k$ which achieved ($V_{max}$), when the last time we show it to visitor $i$, as $v_i \leq \frac{\sum_{j} v_{j}}{2m} $:
+$$
+	V_{max}-v_{i} \geq \frac{\sum_{j} v_{j}}{2m} \geq S^{*}
+$$
+This is contraydictory to the algorithm above, so:
+
+$$
+	S^{*} \leq \frac{\sum_{j} v_{j}}{m} \leq 2S
+$$
+
+\subsubsection*{(a)}
+Suppose there are 13 customers with values 1,1,1, 1,1,1, 1,1,1, 1,1,1, 4. The optimal solution is 4, in this sample instance, but my algorithm finds 3.
+\vspace{2cm}
+
+
+\subsection*{p655 Ex11.8}
+\subsection*{Answer}
+The conjecture is true. We can retract from the optimal solution. we choose load i, which is the last task of machine j and without which machine j finish loads first as the last comming load. Repeat this to find the second from the bottom until the first load. So the sequence is found.
+
+Although this is always possible, it is not known wether it can be solved in polynomial time.
+\vspace*{2cm}
+
+
+\subsection*{p656 Ex11.9}
+\begin{adjustwidth}{1cm}{1cm}
+	Consider the following maximization version of the 3 -Dimensional Matching Problem. Given disjoint sets $X, Y,$ and $Z,$ and given a set $T \subseteq X \times Y \times Z$ of ordered triples, a subset $M \subseteq T$ is a 3 -dimensional matching if each element of $X \cup Y \cup Z$ is contained in at most one of these triples. The Maximum 3-Dimensional Matching Problem is to find a 3 -dimensional matching $M$ of maximum size. (The size of the matching, as usual, is the number of triples it contains. You may assume $|X|=|Y|=|Z|$ if you want. $)$
+	Give a polynomial-time algorithm that finds a 3 -dimensional matching of size at least $\frac{1}{3}$ times the maximum possible size.
+\end{adjustwidth}
+\subsection*{Answer}
+We can choose $t_i \in T$ one by one until we cannot choose one more $t_i$. First of all, any triple in optimal solution has at least one element belows to this approximation solution. Otherwise, we can add this triple to my solution. For any $t_i = (x_i,y_i,z_i)$ in my solution, $x_i$, $y_i$, $z_i$ can belows to at most three triple. So my algorithm finds a 3 -dimensional matching of size at least $\frac{1}{3}$ times the maximum possible size.
+
 %表格
 %\begin{table}[!htbp]
 %	\centering
