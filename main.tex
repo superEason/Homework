@@ -1261,6 +1261,64 @@ Although this is always possible, it is not known wether it can be solved in pol
 \subsection*{Answer}
 We can choose $t_i \in T$ one by one until we cannot choose one more $t_i$. First of all, any triple in optimal solution has at least one element belows to this approximation solution. Otherwise, we can add this triple to my solution. For any $t_i = (x_i,y_i,z_i)$ in my solution, $x_i$, $y_i$, $z_i$ can belows to at most three triple. So my algorithm finds a 3 -dimensional matching of size at least $\frac{1}{3}$ times the maximum possible size.
 
+
+
+\newpage
+\section*{Homework 12}
+\subsection*{p656 Ex11.10}
+\subsection*{ Answer}
+\subsubsection*{(a)}
+	By proof by contradiction, if there exists a node $v \in T$ but $v \notin S$. according to the algorithm, there must be some of its neighbors $v' \in S$. If all these neighbors $w(v')<w(v)$, before  pick first node of these neighbors, $v$ is bigger than all of them, according to the algorithm, $v$ should be picked. That is contraydictory to the assumption that $v \notin S$.
+\subsubsection*{(b)}
+Let $N(v)$ be all neighbors of $v$. For any $v'\in S, v'\notin T$, $v'$ could be neighbor of at most 4 nodes $v \in T$, so:
+	$$
+	\begin{aligned}
+	\sum_{v\in T} w(v) &=  \sum_{v\in T, v\in S}w(v) \quad + \sum_{v\in T, v\notin S}w(v) \\
+	&\leq \sum_{v\in T, v\in S}w(v) \quad + \sum_{v\in T, v\notin S}\sum_{v'\in N(v)}w(v') \\
+	&\leq \sum_{v\in S, v\in T}w(v) \quad + 4\sum_{v\in S, v\notin T}w(v)\\
+	&\leq 4\sum_{v\in S} w(v)
+	\end{aligned}
+	$$
+	\vspace*{2cm}
+
+\subsection*{p656 Ex11.10}
+\subsection*{ Answer}
+We can round all weights to $w_{i}^{'}=[\frac{n}{2\epsilon W}w_i]$ and fix the problem with the limitation of $W'=\frac{n}{2\epsilon}$. Let S be the solultion:
+	$$
+	\sum_{i\in S}w_i \leq \sum_{i\in S}{(w_{i}^{'}+0.5)\frac{2\epsilon W}{n}}
+	\leq (\frac{n}{2\epsilon}+0.5n)\frac{2\epsilon W}{n} \leq (1+\epsilon)W
+	$$
+\vspace*{2cm}
+
+
+\subsection*{p703 Ex12.2}
+\subsection*{Answer}
+\subsubsection*{(a)}
+$$
+G = \{v_1, v_2, u_1, u_2, v_1-u_1, v_1-u_2, v_2-u_2\}
+$$
+If we add $v_1-u_2$ to matching at first, then this gradient ascent
+algorithm does not return the maximum matching$\{v_1-u_1, v_2-u_2\}$
+
+\subsubsection*{(b)}
+By proof by contradiction, if for any $e'\in M'$, $M \cup e'$ is not a matching in G, then for these $e'_i = v_i-u_i$, $v_i \in M$ or $u_i \in M$. So there is at least $|M'|$ different nodes in M, that is, $|M| \geq \frac{1}{2}|M'|$, which is contraydictory to the fact that $2|M| < |M'|$
+
+\subsubsection*{(c)}
+By the above Gradient Ascent Algorithm, we can always add edge to $M$ until for any matching $M'$, $|M| \geq \frac{1}{2}|M'|$. So, any locally optimal matching returned by the gradient ascent algorithm in a bipartite graph G is at least half as large as a maximum matching in G.
+
+\vspace*{2cm}
+
+\subsection*{p703 Ex12.3}
+\subsection*{Answer}
+\subsubsection*{(a)}
+If $T_1 > 2T_2$ or $2T_1 > T_2$, let's say that $T_1 \geq 2T_2$, there must exists $t_i \in T_1$, $t_{i} \leq \frac{1}{2}(T_1+T_2)$. Then we can move $t_i$ to $T_2$ and make the gap smaller.
+
+\subsubsection*{(b)}
+Each time when we move $t_j$ to other machine, $t_j$ is no more than the gap. So, at the next move, available $t_j'$ is samller than the gap so is smaller than $t_j$. That means under this variant, each job will move at most once.
+
+\subsubsection*{(c)}
+Machine1:\{3,4\}, Machine2:\{4,5\}. 
+
 %表格
 %\begin{table}[!htbp]
 %	\centering
