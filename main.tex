@@ -1268,26 +1268,26 @@ We can choose $t_i \in T$ one by one until we cannot choose one more $t_i$. Firs
 \subsection*{p656 Ex11.10}
 \subsection*{ Answer}
 \subsubsection*{(a)}
-	By proof by contradiction, if there exists a node $v \in T$ but $v \notin S$. according to the algorithm, there must be some of its neighbors $v' \in S$. If all these neighbors $w(v')<w(v)$, before  pick first node of these neighbors, $v$ is bigger than all of them, according to the algorithm, $v$ should be picked. That is contraydictory to the assumption that $v \notin S$.
+By proof by contradiction, if there exists a node $v \in T$ but $v \notin S$. according to the algorithm, there must be some of its neighbors $v' \in S$. If all these neighbors $w(v')<w(v)$, before  pick first node of these neighbors, $v$ is bigger than all of them, according to the algorithm, $v$ should be picked. That is contraydictory to the assumption that $v \notin S$.
 \subsubsection*{(b)}
 Let $N(v)$ be all neighbors of $v$. For any $v'\in S, v'\notin T$, $v'$ could be neighbor of at most 4 nodes $v \in T$, so:
-	$$
+$$
 	\begin{aligned}
-	\sum_{v\in T} w(v) &=  \sum_{v\in T, v\in S}w(v) \quad + \sum_{v\in T, v\notin S}w(v) \\
-	&\leq \sum_{v\in T, v\in S}w(v) \quad + \sum_{v\in T, v\notin S}\sum_{v'\in N(v)}w(v') \\
-	&\leq \sum_{v\in S, v\in T}w(v) \quad + 4\sum_{v\in S, v\notin T}w(v)\\
-	&\leq 4\sum_{v\in S} w(v)
+		\sum_{v\in T} w(v) & =  \sum_{v\in T, v\in S}w(v) \quad + \sum_{v\in T, v\notin S}w(v)                     \\
+		                   & \leq \sum_{v\in T, v\in S}w(v) \quad + \sum_{v\in T, v\notin S}\sum_{v'\in N(v)}w(v') \\
+		                   & \leq \sum_{v\in S, v\in T}w(v) \quad + 4\sum_{v\in S, v\notin T}w(v)                  \\
+		                   & \leq 4\sum_{v\in S} w(v)
 	\end{aligned}
-	$$
-	\vspace*{2cm}
+$$
+\vspace*{2cm}
 
 \subsection*{p656 Ex11.10}
 \subsection*{ Answer}
 We can round all weights to $w_{i}^{'}=[\frac{n}{2\epsilon W}w_i]$ and fix the problem with the limitation of $W'=\frac{n}{2\epsilon}$. Let S be the solultion:
-	$$
+$$
 	\sum_{i\in S}w_i \leq \sum_{i\in S}{(w_{i}^{'}+0.5)\frac{2\epsilon W}{n}}
 	\leq (\frac{n}{2\epsilon}+0.5n)\frac{2\epsilon W}{n} \leq (1+\epsilon)W
-	$$
+$$
 \vspace*{2cm}
 
 
@@ -1295,7 +1295,7 @@ We can round all weights to $w_{i}^{'}=[\frac{n}{2\epsilon W}w_i]$ and fix the p
 \subsection*{Answer}
 \subsubsection*{(a)}
 $$
-G = \{v_1, v_2, u_1, u_2, v_1-u_1, v_1-u_2, v_2-u_2\}
+	G = \{v_1, v_2, u_1, u_2, v_1-u_1, v_1-u_2, v_2-u_2\}
 $$
 If we add $v_1-u_2$ to matching at first, then this gradient ascent
 algorithm does not return the maximum matching$\{v_1-u_1, v_2-u_2\}$
@@ -1317,7 +1317,61 @@ If $T_1 > 2T_2$ or $2T_1 > T_2$, let's say that $T_1 \geq 2T_2$, there must exis
 Each time when we move $t_j$ to other machine, $t_j$ is no more than the gap. So, at the next move, available $t_j'$ is samller than the gap so is smaller than $t_j$. That means under this variant, each job will move at most once.
 
 \subsubsection*{(c)}
-Machine1:\{3,4\}, Machine2:\{4,5\}. 
+Machine1:\{3,4\}, Machine2:\{4,5\}.
+
+
+\newpage
+\section*{Homework 13}
+\subsection*{p705 Ex12.4}
+\subsection*{ Answer}
+\subsubsection*{(a)}
+We can define
+$$
+	\Delta = \sum_{i \neq j}|T_i-T_j|
+$$
+After each swap, For $T_k < min\{T_i,T_j\}$ and $T_k > min\{T_i,T_j\}$ their total distance from $T_i$ and $T_j$ is the same. For $min\{T_i,T_j\} < T_k < max\{T_i,T_j\}$, their total distance from $T_i$ and $T_j$ is smaller. As
+$\max \{T_{i}^{\prime}, T_{j}^{\prime}\} < \max\}T_{i}, T_{j}\} $, so:
+$$
+	0 \leq \Delta' = \sum_{i \neq j}|T_i'-T_j'| < \Delta
+$$
+
+so, the local search heuristic terminates in a finite number of steps, with a stable assignment, on any instance.
+
+
+\subsubsection*{(b)}
+It is obvious that the maximum $t_i$ is not more than minimum possible makespan.
+If the stable assignment has a makespan that is larger than factor of 2 of minimum possible makespan. Assume $i$ is the machine which have the most load in stable assignment. There exist a $B(i) \subseteq A(i)$, $T_{optimal}<T_{B(i)}<T_{A(i)}$ Then we can swap $B(i)$ with any $A(j)<T_{optimal}$. This is contraydictory to stable assignment.
+\vspace*{2cm}
+
+
+\subsection*{p782 Ex13.1}
+\subsection*{ Answer}
+we can color each node randomly. For each edge, it has a probility of $\frac{A_3^2}{3*3} = \frac{2}{3}$ to be satisfied. So,
+$$
+	exp(|E_{satisfied}|)=\frac{2}{3}|E| \geq \frac{2}{3}c^*
+$$
+\vspace*{2cm}
+
+
+\subsection*{p783 Ex13.3}
+\subsection*{Answer}
+\subsubsection*{(a)}
+It is abvious that this protocol is conflict-free because $P_i$ enter the set S only if each of the processes with which it is in conflict chooses the value 0, that means all of these processes didn't enter S.
+$$
+	E(|S|) = n * (\frac{1}{2})^{d+1}
+$$
+
+\subsubsection*{(b)}
+$$
+	\begin{aligned}
+		E(|S|)               & = n * p(1-p)^d                 \\
+		\frac{dy}{dp} E(|S|) & = n[(1-p)^d-pd(1-p)^{d-1}] = 0
+	\end{aligned}
+$$
+
+So, $p = \frac{1}{d+1}$, and
+$$E(|S|) = \frac{nd^d}{(d+1)^{d+1}}
+$$
 
 %表格
 %\begin{table}[!htbp]
